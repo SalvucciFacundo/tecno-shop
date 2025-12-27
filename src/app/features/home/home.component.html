@@ -1,0 +1,109 @@
+<main class="home-container">
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <h1 class="glitch-text" data-text="TECNO-SHOP_V3.0">TECNO-SHOP_V3.0</h1>
+      <div class="status-indicator">
+        <span class="pulse-dot"></span>
+        <span class="status-text">SYSTEM ONLINE</span>
+      </div>
+    </div>
+    <div class="header-decor">
+      <div class="line"></div>
+      <div class="corners"></div>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <div class="panel-header">
+        <span class="icon">▚</span>
+        <span class="title">CORE_FILTERS</span>
+      </div>
+
+      <div class="filter-group">
+        <label>HARDWARE_CATEGORY</label>
+        <ul class="filter-list">
+          @for (cat of categories; track cat) {
+          <li
+            class="filter-item"
+            [class.active]="selectedCategory() === cat"
+            (click)="selectCategory(cat)"
+          >
+            <span class="bracket">[</span>
+            <button>{{ cat }}</button>
+            <span class="bracket">]</span>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <label>MAX_PRICE: {{ maxPrice() | currency }}</label>
+        <div class="range-container">
+          <input
+            type="range"
+            min="0"
+            max="5000"
+            step="100"
+            [value]="maxPrice()"
+            (input)="updatePrice($event)"
+            class="cyber-range"
+          />
+          <div class="range-values">
+            <span>0 CREDITS</span>
+            <span>5000+</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="binary-decor">010010101 1101010</div>
+        <div class="version">BUILD_742-RTX</div>
+      </div>
+    </aside>
+
+    <!-- Product Grid -->
+    <section class="content-area">
+      <div class="grid-header">
+        <span class="results-count">MATCHING_RECORDS: {{ filteredProducts().length }}</span>
+        <div class="view-options">
+          <span class="opt">GRIDVIEW</span>
+          <span class="opt inactive">LISTVIEW</span>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        @for (product of filteredProducts(); track product.id) {
+        <app-product-card [product]="product" (addToCart)="onAddToCart($event)"> </app-product-card>
+        } @empty {
+        <div class="no-results">
+          <span class="glitch">NO_RECORDS_FOUND</span>
+        </div>
+        }
+      </div>
+    </section>
+  </div>
+
+  <!-- Global Decorations -->
+  <div class="scanlines"></div>
+
+  <!-- Cart Trigger -->
+  <button class="cart-trigger" (click)="toggleCart()" [class.has-items]="cartCount() > 0">
+    <div class="btn-box">
+      <span class="icon">🛒</span>
+      <span class="label">HUD_CART</span>
+      @if (cartCount() > 0) {
+      <span class="badge">{{ cartCount() }}</span>
+      }
+    </div>
+    <div class="glow"></div>
+  </button>
+
+  <!-- Side Widget -->
+  <app-cart-widget />
+
+  <!-- Transaction Terminal -->
+  <app-checkout-modal />
+</main>

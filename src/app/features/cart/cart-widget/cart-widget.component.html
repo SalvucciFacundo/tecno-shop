@@ -1,0 +1,58 @@
+<aside class="cart-sidebar" [class.is-open]="isOpen()">
+  <div class="sidebar-backdrop" (click)="close()"></div>
+
+  <div class="sidebar-content">
+    <header class="cart-header">
+      <div class="header-main">
+        <span class="glitch-icon">⚠</span>
+        <h2 class="title">SYSTEM_LOG // SHOPPING_CART</h2>
+      </div>
+      <button class="close-btn" (click)="close()">[ ESC_CLOSE ]</button>
+    </header>
+
+    <div class="system-monitor">
+      <div class="scanline"></div>
+
+      @if (items().length > 0) {
+      <ul class="cart-list">
+        @for (item of items(); track item.product.id) {
+        <li class="cart-item">
+          <span class="item-id">REF_{{ item.product.id }}</span>
+          <div class="item-details">
+            <span class="item-name">> [{{ item.quantity }}x] {{ item.product.name }}</span>
+            <span class="item-price">{{ item.product.price * item.quantity | currency }}</span>
+          </div>
+          <div class="item-actions">
+            <button (click)="removeItem(item.product.id)" class="action-btn delete">
+              [ DELETE ]
+            </button>
+          </div>
+        </li>
+        }
+      </ul>
+      } @else {
+      <div class="empty-state">
+        <span class="blink">> NO_DATA_DETECTED</span>
+        <span class="msg">PENDING_PURCHASE_INITIALIZATION...</span>
+      </div>
+      }
+    </div>
+
+    <footer class="cart-footer">
+      <div class="total-row">
+        <span class="label">NET_TOTAL:</span>
+        <span class="value">{{ total() | currency }}</span>
+      </div>
+
+      <div class="btn-group">
+        @if (items().length > 0) {
+        <button class="action-btn clear" (click)="clear()">[ PURGE_ALL ]</button>
+        <button class="checkout-btn" (click)="checkout()">
+          <span class="btn-inner">EXECUTE_CHECKOUT</span>
+          <span class="glow-effect"></span>
+        </button>
+        }
+      </div>
+    </footer>
+  </div>
+</aside>

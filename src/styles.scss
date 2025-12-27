@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --cyber-black: #050505;
+  --cyber-dark: #0a0b0e;
+  --cyber-cyan: #00f3ff;
+  --cyber-magenta: #ff00ff;
+  --cyber-yellow: #fcee0a;
+}
+
+/* =========================================
+   FONDO GLOBAL FUTURISTA
+   ========================================= */
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* Color de fondo base muy oscuro, no negro puro */
+    background-color: var(--cyber-black);
+    /* Color del texto base para que sea legible */
+    color: #e0e0e0; 
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Patrón de Grilla Digital */
+body::before {
+    content: "";
+    position: fixed; /* Se queda fijo al hacer scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Deja pasar los clicks */
+    z-index: -1; /* Se va detrás de todo tu contenido */
+    
+    background-image: 
+        linear-gradient(to bottom, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* =========================================
+   EFECTO "SCANLINE"
+   ========================================= */
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999; /* Encima de todo */
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(0, 255, 255, 0.08) 50%, 
+        transparent 100%
+    );
+    background-size: 100% 4px;
+    animation: scanlineMove 10s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes scanlineMove {
+    0% { background-position: 0 -100vh; }
+    100% { background-position: 0 100vh; }
+}
+
+h1, h2, h3, h4, .cyber-font {
+  font-family: 'Orbitron', sans-serif;
+}
+
+code, pre, .mono-font {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbar para estética Cyberpunk */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyber-cyan);
+  box-shadow: 0 0 10px var(--cyber-cyan);
+}

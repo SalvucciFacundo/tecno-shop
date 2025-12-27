@@ -1,0 +1,89 @@
+<div class="modal-overlay" [class.is-open]="isOpen()" (click)="close()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-glitch-border"></div>
+
+    <header class="modal-header">
+      <div class="title-wrapper">
+        <span class="pulse-icon">⚡</span>
+        <h2 class="title" data-text="INITIATING SECURE PROTOCOL...">
+          INITIATING SECURE PROTOCOL...
+        </h2>
+      </div>
+      <button class="close-btn" (click)="close()" [disabled]="isProcessing()">
+        [ ABORT_PROCESS ]
+      </button>
+    </header>
+
+    <div class="modal-body">
+      @if (!isSuccess()) {
+      <div class="input-form">
+        <div class="input-group">
+          <label>> SOURCE_DATA: TARGET_ID</label>
+          <input
+            type="text"
+            [ngModel]="targetId()"
+            (ngModelChange)="targetId.set($event)"
+            placeholder="SUBJECT_NAME"
+            [disabled]="isProcessing()"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>> FIELD_OPERATIONS: DROP_COORDINATES</label>
+          <input
+            type="text"
+            [ngModel]="dropCoords()"
+            (ngModelChange)="dropCoords.set($event)"
+            placeholder="SECTOR/COORD"
+            [disabled]="isProcessing()"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>> CORE_FINANCE: CREDIT_CHIP_ID</label>
+          <input
+            type="text"
+            [ngModel]="creditChip()"
+            (ngModelChange)="creditChip.set($event)"
+            placeholder="XXXX-XXXX-XXXX"
+            [disabled]="isProcessing()"
+          />
+        </div>
+
+        <div class="security-banner">
+          <span class="msg">ENCRYPTION_LEVEL: MIL-SPEC_742</span>
+          <div class="progress-line"></div>
+        </div>
+      </div>
+      } @else {
+      <div class="success-screen">
+        <div class="success-icon">✔</div>
+        <h3 class="success-title">TRANSACTION COMPLETE</h3>
+        <p class="success-msg">CREDITS_TRANSFERRED // HARDWARE_QUEUE_INITIALIZED</p>
+        <button class="done-btn" (click)="close()">[ DISCONNECT ]</button>
+      </div>
+      }
+    </div>
+
+    @if (!isSuccess()) {
+    <footer class="modal-footer">
+      <button
+        class="confirm-btn"
+        (click)="confirmTransfer()"
+        [disabled]="isProcessing() || !targetId() || !dropCoords() || !creditChip()"
+        [class.loading]="isProcessing()"
+      >
+        <span class="btn-text">
+          @if (isProcessing()) { ENCRYPTING_DATA... } @else { CONFIRM TRANSFER }
+        </span>
+        <div class="btn-decoration"></div>
+      </button>
+    </footer>
+    }
+
+    <div class="terminal-decor">
+      <span class="tag">SEC_ZONE_01</span>
+      <div class="scanline"></div>
+    </div>
+  </div>
+</div>

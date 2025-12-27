@@ -1,0 +1,53 @@
+<div class="card-container">
+  <div class="card-glitch-border"></div>
+
+  <div class="card-content">
+    <div class="image-wrapper">
+      <img
+        [ngSrc]="product().image"
+        [alt]="product().name"
+        width="300"
+        height="200"
+        priority
+        class="product-image"
+      />
+      <div class="image-overlay"></div>
+    </div>
+
+    <div class="info-container">
+      <div class="category-tag">{{ product().category }}</div>
+      <h3 class="product-title">{{ product().name }}</h3>
+
+      <div class="specs-preview">
+        @for (spec of product().specs | keyvalue; track spec.key) { @if ($index < 2) {
+        <span class="spec-item">
+          <span class="spec-key">{{ spec.key }}:</span> {{ spec.value }}
+        </span>
+        } }
+      </div>
+
+      <div class="price-row">
+        <span class="price-label">EST. COST:</span>
+        <span class="price-value">{{ product().price | currency }}</span>
+      </div>
+
+      <button
+        class="hologram-btn"
+        (click)="onAddToCart()"
+        [disabled]="product().stock === 0 || isProcessing()"
+        [class.processing]="isProcessing()"
+      >
+        <span class="btn-text">
+          @if (isProcessing()) { PROCESSING... } @else if (product().stock > 0) { INITIALIZE
+          PURCHASE } @else { OUT OF STOCK }
+        </span>
+        <span class="btn-glitch"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card-decoration">
+    <span class="id-tag">REF_{{ product().id }}</span>
+    <div class="scan-line"></div>
+  </div>
+</div>
