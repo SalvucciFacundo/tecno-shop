@@ -2,6 +2,7 @@ import { Injectable, computed, signal, effect, inject, PLATFORM_ID } from '@angu
 import { isPlatformBrowser } from '@angular/common';
 import { Product } from '../interfaces/product.interface';
 import { CartItem } from '../interfaces/cart-item.interface';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { CartItem } from '../interfaces/cart-item.interface';
 export class CartService {
   private readonly STORAGE_KEY = 'TECNO_SHOP_CART';
   private platformId = inject(PLATFORM_ID);
+  private toastService = inject(ToastService);
   private isBrowser = isPlatformBrowser(this.platformId);
 
   // Estado principal del carrito usando Signals, inicializado vacío para SSR
@@ -67,6 +69,8 @@ export class CartService {
 
       return [...items, { product, quantity: 1 }];
     });
+
+    this.toastService.show(`ITEM_ADDED_TO_QUEUE: ${product.name}`, 'info');
   }
 
   removeFromCart(productId: string): void {
@@ -86,5 +90,6 @@ export class CartService {
 
   clearCart(): void {
     this.cartItemsSignal.set([]);
+    this.toastService.show('CART_PURGED // SYSTEM_RESET', 'warning');
   }
 }

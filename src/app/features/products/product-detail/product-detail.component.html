@@ -1,0 +1,77 @@
+@if (product(); as p) {
+<div class="blueprint-container">
+  <header class="blueprint-header">
+    <div class="header-left">
+      <span class="tech-label">CORE_SPECIFICATION // MODEL_V{{ p.id }}</span>
+      <h1 class="product-name" [attr.data-text]="p.name">{{ p.name }}</h1>
+    </div>
+    <a routerLink="/" class="back-btn">[ BACK_TO_DATABASE ]</a>
+  </header>
+
+  <div class="blueprint-layout">
+    <!-- Image Section as Schematic -->
+    <div class="schematic-section">
+      <div class="image-frame">
+        <img
+          [ngSrc]="p.image"
+          [alt]="p.name"
+          width="600"
+          height="400"
+          priority
+          class="blueprint-image"
+        />
+        <div class="grid-overlay"></div>
+        <div class="scanline"></div>
+
+        <!-- Interactive Callouts (Visual Only) -->
+        <div class="callout c1" style="top: 20%; left: 10%">[ OPTICAL_SENSOR_01 ]</div>
+        <div class="callout c2" style="bottom: 30%; right: 15%">[ THERMAL_EXHAUST_V2 ]</div>
+      </div>
+    </div>
+
+    <!-- Data Section -->
+    <aside class="data-section">
+      <div class="data-block">
+        <div class="block-title">TECHNICAL_PARAMETERS</div>
+        <ul class="specs-list">
+          @for (spec of p.specs | keyvalue; track spec.key) {
+          <li class="spec-entry">
+            <span class="key">> {{ spec.key }}</span>
+            <span class="dots"></span>
+            <span class="value">{{ spec.value }}</span>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <div class="data-block status">
+        <div class="block-title">SYSTEM_STATUS</div>
+        <div class="status-indicator" [class.low-stock]="p.stock < 5">
+          <span class="status-label">AVAILABILITY_STATUS:</span>
+          <span class="status-value"
+            >{{ p.stock > 0 ? 'NOMINAL' : 'DEPLETED' }} ({{ p.stock }} units)</span
+          >
+        </div>
+      </div>
+
+      <div class="data-block price">
+        <div class="price-box">
+          <span class="label">REQUISITION_COST:</span>
+          <span class="value">{{ p.price | currency }}</span>
+        </div>
+        <button class="acquire-btn" (click)="addToCart()" [disabled]="p.stock === 0">
+          <span class="btn-text">{{ p.stock > 0 ? 'INITIATE_REQUISITION' : 'OUT_OF_STOCK' }}</span>
+          <div class="pulse-ring"></div>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="blueprint-footer">
+    <div class="footer-decor">
+      <div class="binary">1011001 1101010 0011011</div>
+      <div class="ref-code">REF_ID: {{ p.id }} // CATEGORY: {{ p.category }}</div>
+    </div>
+  </footer>
+</div>
+}

@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, input, output, inject, signal } from '@angular/core';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/interfaces/product.interface';
 import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, CurrencyPipe, NgOptimizedImage],
+  imports: [CommonModule, CurrencyPipe, NgOptimizedImage, RouterLink],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,21 +2,25 @@
   <div class="card-glitch-border"></div>
 
   <div class="card-content">
-    <div class="image-wrapper">
-      <img
-        [ngSrc]="product().image"
-        [alt]="product().name"
-        width="300"
-        height="200"
-        priority
-        class="product-image"
-      />
-      <div class="image-overlay"></div>
-    </div>
+    <a [routerLink]="['/product', product().id]" class="product-link">
+      <div class="image-wrapper">
+        <img
+          [ngSrc]="product().image"
+          [alt]="product().name"
+          width="300"
+          height="200"
+          priority
+          class="product-image"
+        />
+        <div class="image-overlay"></div>
+      </div>
+    </a>
 
     <div class="info-container">
       <div class="category-tag">{{ product().category }}</div>
-      <h3 class="product-title">{{ product().name }}</h3>
+      <a [routerLink]="['/product', product().id]" class="product-link">
+        <h3 class="product-title">{{ product().name }}</h3>
+      </a>
 
       <div class="specs-preview">
         @for (spec of product().specs | keyvalue; track spec.key) { @if ($index < 2) {

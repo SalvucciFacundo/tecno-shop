@@ -1,0 +1,192 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0a101a 0%, #050608 100%);
+  color: var(--cyber-cyan, #00f3ff);
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.blueprint-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 243, 255, 0.1);
+  background: rgba(0, 243, 255, 0.02);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.blueprint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid var(--cyber-cyan);
+  padding-bottom: 1.5rem;
+  margin-bottom: 3rem;
+
+  .tech-label {
+    font-size: 0.7rem;
+    color: rgba(0, 243, 255, 0.4);
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .product-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+  }
+
+  .back-btn {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s;
+    &:hover { color: var(--cyber-cyan); }
+  }
+}
+
+.blueprint-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.image-frame {
+  position: relative;
+  border: 1px dashed rgba(0, 243, 255, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  .blueprint-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1) hue-rotate(180deg) brightness(1.5) contrast(1.2);
+    opacity: 0.6;
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .callout {
+    position: absolute;
+    font-size: 0.6rem;
+    background: rgba(0, 243, 255, 0.1);
+    padding: 2px 4px;
+    border: 1px solid var(--cyber-cyan);
+    animation: flicker 4s infinite;
+  }
+}
+
+.data-block {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 243, 255, 0.15);
+  background: rgba(10, 11, 14, 0.5);
+
+  .block-title {
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    border-left: 3px solid var(--cyber-cyan);
+    padding-left: 0.8rem;
+  }
+}
+
+.specs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .spec-entry {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+
+    .key { color: rgba(255, 255, 255, 0.6); }
+    .dots { flex: 1; border-bottom: 1px dotted rgba(0, 243, 255, 0.2); margin: 0 0.5rem; }
+    .value { color: var(--cyber-cyan); font-weight: bold; }
+  }
+}
+
+.status-indicator {
+  &.low-stock {
+    color: #fcee0a;
+    .status-value { animation: blink 1s step-end infinite; }
+  }
+}
+
+.price-box {
+  margin-bottom: 1.5rem;
+  .label { font-size: 0.7rem; display: block; margin-bottom: 0.5rem; }
+  .value { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: #fff; }
+}
+
+.acquire-btn {
+  width: 100%;
+  background: var(--cyber-cyan);
+  border: none;
+  color: #000;
+  padding: 1.2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+  transition: all 0.3s;
+
+  &:hover:not(:disabled) {
+    background: #fff;
+    box-shadow: 0 0 20px #fff;
+    transform: scale(1.02);
+  }
+
+  &:disabled {
+    background: #333;
+    color: #666;
+    cursor: not-allowed;
+  }
+}
+
+.blueprint-footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 243, 255, 0.1);
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+  51% { opacity: 1; }
+  52% { opacity: 0.8; }
+}
+
+@keyframes blink {
+  50% { opacity: 0.3; }
+}
